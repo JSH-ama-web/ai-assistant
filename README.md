@@ -240,16 +240,14 @@ Firebase 키 없이 화면만 확인하려면 `.env`에 `USE_MEMORY_DB=true` 후
 
 ## 12. 스크린샷
 
-| 화면 | 파일 |
-|---|---|
-| 데이터 요약이 보이는 채팅 (질문+답변) | `docs/screenshots/chat.png` |
-| 데이터 관리 (추가/수정/삭제 동작) | `docs/screenshots/data.png` |
-| 대화 기록 (불러오기 동작) | `docs/screenshots/history.png` |
-| Swagger UI | `docs/screenshots/swagger.png` |
-| (보너스) 도구 호출 칩 / MCP | `docs/screenshots/tools.png`, `mcp.png` |
+**데이터 요약이 보이는 채팅 화면 (질문 + 답변, 도구 호출 근거 표시)**
 
-<!-- 배포 후 캡처해서 위 경로에 넣고 아래 주석을 해제하세요
-![채팅](docs/screenshots/chat.png)
-![데이터 관리](docs/screenshots/data.png)
-![대화 기록](docs/screenshots/history.png)
--->
+<img src="docs/screenshots/chat.png" width="480" alt="채팅 화면">
+
+**데이터 관리 화면 (요약·추세 그래프·추가 폼)**
+
+<img src="docs/screenshots/data.png" width="480" alt="데이터 관리 화면">
+
+**대화 기록 화면 (저장된 대화 목록 → 선택해 불러오기)**
+
+<img src="docs/screenshots/history.png" width="480" alt="대화 기록 화면">
