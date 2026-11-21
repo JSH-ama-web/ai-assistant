@@ -384,7 +384,8 @@
     const el = document.createElement("div");
     el.className = `msg ${role}`;
     el.innerHTML = `<div class="bubble"></div>`;
-    $(".bubble", el).textContent = text;
+    // 텍스트는 먼저 이스케이프한 뒤 **굵게** 만 <strong> 으로 바꾼다 (XSS 방지)
+    $(".bubble", el).innerHTML = esc(text).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
     if (toolCalls.length) {
       const tc = document.createElement("div");
       tc.className = "tool-calls";

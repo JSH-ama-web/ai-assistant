@@ -6,9 +6,9 @@
 
 | 구분 | 주소 |
 |---|---|
-| 프론트엔드 (Vercel) | `https://<프로젝트명>.vercel.app` ← 배포 후 기입 |
-| 백엔드 API (Render) | `https://<서비스명>.onrender.com` |
-| Swagger UI | `https://<서비스명>.onrender.com/docs` |
+| 프론트엔드 (Vercel) | https://ai-assistant-frontend-virid.vercel.app |
+| 백엔드 API (Render) | https://ai-assistant-api-ecqq.onrender.com |
+| Swagger UI | https://ai-assistant-api-ecqq.onrender.com/docs |
 
 > Render 무료 티어는 15분간 요청이 없으면 잠듭니다. 첫 접속은 30~60초 걸릴 수 있으며, 화면 상단에 안내 배너가 뜨고 자동으로 `/health`를 재시도합니다.
 
@@ -168,7 +168,7 @@ Claude Desktop `claude_desktop_config.json`:
     "workout-assistant": {
       "command": "/절대경로/mcp_server/.venv/bin/python",
       "args": ["/절대경로/mcp_server/server.py"],
-      "env": { "API_BASE_URL": "https://<서비스명>.onrender.com" }
+      "env": { "API_BASE_URL": "https://ai-assistant-api-ecqq.onrender.com" }
     }
   }
 }
@@ -209,7 +209,7 @@ Firebase 키 없이 화면만 확인하려면 `.env`에 `USE_MEMORY_DB=true` 후
 |---|---|---|---|
 | `AI_API_KEY` | Render | ✅ | 코디세이 콘솔(copa.codyssey.kr)에서 발급한 키 |
 | `FIREBASE_SERVICE_ACCOUNT_JSON` | Render | ✅ | 서비스 계정 JSON 전체(한 줄) 또는 base64. 로컬은 `FIREBASE_CREDENTIALS_PATH` 사용 가능 |
-| `ALLOWED_ORIGINS` | Render | ✅ | CORS 허용 도메인, 쉼표 구분 (예: `https://xxx.vercel.app`) |
+| `ALLOWED_ORIGINS` | Render | ✅ | CORS 허용 도메인, 쉼표 구분 (`https://ai-assistant-frontend-virid.vercel.app`) |
 | `API_BASE_URL` | Vercel | ✅ | 백엔드 주소 (빌드 시 `config.js`로 주입) |
 | `AI_BASE_URL` | Render | | 기본 `https://copa.codyssey.kr` |
 | `AI_MODEL` | Render | | 기본 `claude-haiku-4` (콘솔의 사용 가능 모델명) |
@@ -225,13 +225,13 @@ Firebase 키 없이 화면만 확인하려면 `.env`에 `USE_MEMORY_DB=true` 후
 
 **Firebase**: 콘솔 → 프로젝트 생성 → Firestore Database 생성 → 프로젝트 설정 › 서비스 계정 › *새 비공개 키 생성* (JSON 다운로드)
 
-**Render (백엔드)**: New › Web Service › GitHub 저장소 연결
+**Render (백엔드)**: New › Web Service › Public Git Repository(`https://github.com/JSH-ama-web/ai-assistant`) — 이 방식은 push 시 자동 배포가 안 되므로 코드 변경 후 *Manual Deploy › Deploy latest commit*
 - Root Directory `backend` · Build `pip install -r requirements.txt` · Start `uvicorn main:app --host 0.0.0.0 --port $PORT`
 - Environment에 위 표의 Render 변수 입력 (`PYTHON_VERSION=3.11.9` 권장) → 배포 후 `/docs` 확인
 - 데이터 업로드는 로컬에서 `seed_data.py` 실행 (같은 Firestore를 사용)
 
 **Vercel (프론트엔드)**: Add New › Project › 같은 저장소 › Root Directory `frontend`
-- Environment Variables: `API_BASE_URL=https://<서비스명>.onrender.com` → Deploy
+- Environment Variables: `API_BASE_URL=https://ai-assistant-api-ecqq.onrender.com` → Deploy
 - 배포 URL을 Render의 `ALLOWED_ORIGINS`에 추가 후 재배포 (`*.vercel.app` 프리뷰는 정규식으로 허용됨)
 
 **콜드스타트 대응**: 프론트가 진입 시 `/health`를 최대 6회 재시도하며 안내 배너 표시, 채팅 로딩 8초 초과 시 "서버가 깨어나는 중" 문구로 변경, 요청 타임아웃 90초.
