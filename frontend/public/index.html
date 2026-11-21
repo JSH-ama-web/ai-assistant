@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>운동 기록 AI 비서</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="config.js"></script>
+</head>
+<body>
+  <div id="banner" class="banner" hidden></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">◐</span>
+      <div>
+        <h1>운동 기록 AI 비서</h1>
+        <p class="sub">내 데이터를 아는 대화형 분석</p>
+      </div>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="화면 전환 (모바일)">
+      <button class="tab active" data-view="chat" role="tab">채팅</button>
+      <button class="tab" data-view="history" role="tab">기록</button>
+      <button class="tab" data-view="data" role="tab">데이터</button>
+    </nav>
+    <button id="themeToggle" class="icon-btn" aria-label="다크 모드 전환" title="다크 모드 전환">☾</button>
+  </header>
+
+  <main class="layout">
+    <!-- 대화 기록 -->
+    <aside class="panel history" data-panel="history">
+      <div class="panel-head">
+        <h2>대화 기록</h2>
+        <button id="newChat" class="btn small">＋ 새 대화</button>
+      </div>
+      <ul id="convList" class="conv-list"></ul>
+    </aside>
+
+    <!-- 채팅 -->
+    <section class="panel chat" data-panel="chat">
+      <div class="summary-strip" id="summaryStrip" aria-live="polite">요약 불러오는 중…</div>
+      <div id="messages" class="messages">
+        <div class="empty-chat">
+          <p>내 운동 기록을 바탕으로 답해요. 이렇게 물어보세요:</p>
+          <div class="suggestions">
+            <button class="chip suggest">이번 달 운동량 어때?</button>
+            <button class="chip suggest">가장 많이 운동한 날은?</button>
+            <button class="chip suggest">무슨 요일에 제일 많이 하지?</button>
+            <button class="chip suggest">복싱은 이번 달에 몇 번 했어?</button>
+          </div>
+        </div>
+      </div>
+      <form id="chatForm" class="composer">
+        <textarea id="chatInput" rows="1" maxlength="2000" placeholder="질문을 입력하세요 (Enter 전송, Shift+Enter 줄바꿈)" required></textarea>
+        <label class="tool-toggle" title="AI가 필요할 때 데이터 조회 도구를 직접 호출">
+          <input type="checkbox" id="useTools" checked /> 도구
+        </label>
+        <button id="sendBtn" class="btn primary" type="submit">전송</button>
+      </form>
+    </section>
+
+    <!-- 데이터 -->
+    <aside class="panel data" data-panel="data">
+      <section class="card">
+        <div class="panel-head"><h2>데이터 요약</h2><span id="trendBadge" class="badge">—</span></div>
+        <dl id="summaryGrid" class="stat-grid"></dl>
+      </section>
+
+      <section class="card">
+        <div class="panel-head"><h2>추세</h2><span class="legend"><i class="l-raw"></i>일별 <i class="l-ma"></i>7일 평균</span></div>
+        <div id="chart" class="chart" role="img" aria-label="일별 운동 시간과 7일 이동평균 그래프"></div>
+        <dl id="extraStats" class="mini-stats"></dl>
+      </section>
+
+      <section class="card">
+        <div class="panel-head">
+          <h2 id="formTitle">데이터 추가</h2>
+          <button id="cancelEdit" class="btn small ghost" type="button" hidden>취소</button>
+        </div>
+        <form id="dataForm" class="data-form">
+          <label>날짜<input type="date" id="fDate" required /></label>
+          <label>값(분)<input type="number" id="fValue" min="0" max="1000000" step="any" required /></label>
+          <label class="wide">메모<input type="text" id="fMemo" maxlength="200" placeholder="예: 복싱" /></label>
+          <button id="saveBtn" class="btn primary wide" type="submit">추가</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <div class="panel-head">
+          <h2>데이터 목록 <span id="dataCount" class="muted"></span></h2>
+          <div class="export">
+            <button class="btn small ghost" data-export="csv">CSV</button>
+            <button class="btn small ghost" data-export="json">JSON</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>날짜</th><th class="num">값</th><th>메모</th><th></th></tr></thead>
+            <tbody id="dataBody"></tbody>
+          </table>
+        </div>
+        <button id="moreBtn" class="btn small ghost wide" hidden>더 보기</button>
+      </section>
+    </aside>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>

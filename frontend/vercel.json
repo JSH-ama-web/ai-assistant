@@ -1,0 +1,7 @@
+{
+  "buildCommand": "node build.js",
+  "outputDirectory": "public",
+  "headers": [
+    { "source": "/config.js", "headers": [{ "key": "Cache-Control", "value": "no-store" }] }
+  ]
+}

@@ -1,0 +1,7 @@
+fastapi>=0.110
+uvicorn[standard]>=0.29
+firebase-admin>=6.5
+python-dotenv>=1.0
+pydantic>=2.6
+# AI 호출은 코디세이 Gateway(copa.codyssey.kr)를 표준 라이브러리 urllib 로 직접 호출하므로
+# openai / anthropic SDK 가 필요 없습니다.

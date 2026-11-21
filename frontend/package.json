@@ -1,0 +1,10 @@
+{
+  "name": "ai-assistant-frontend",
+  "private": true,
+  "version": "1.0.0",
+  "description": "바닐라 HTML/CSS/JS 프론트엔드 (프레임워크 없음)",
+  "scripts": {
+    "build": "node build.js",
+    "dev": "node build.js && npx --yes serve public -l 5500"
+  }
+}
