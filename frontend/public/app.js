@@ -212,6 +212,7 @@
     };
     const leave = () => { tip.hidden = true; hl.setAttribute("visibility", "hidden"); hd.setAttribute("visibility", "hidden"); };
     svg.addEventListener("mousemove", move);
+    svg.addEventListener("touchstart", move, { passive: true });   // 모바일: 탭만 해도 툴팁
     svg.addEventListener("touchmove", move, { passive: true });
     svg.addEventListener("mouseleave", leave);
   }
